@@ -15,11 +15,11 @@ https://medium.com/w-logs/installing-java-11-on-macos-with-homebrew-7f73c1e9fadf
 
 #### TODOs ####
 More tests <br>
-Integration tests <br>
-Error Handling <br>
-Logging <br>
+More Error Handling <br>
+More Logging <br>
 Swagger API documentation <br>
 JavaDocs(?)
+Performance testing with big amounts of data
 
 ### Testing ###
 It was important for me here to avoid testing code that is not mine. for example ROME rss library or RAKE NLP manipulations. <br>
@@ -27,13 +27,17 @@ It was important for me here to avoid testing code that is not mine. for example
 Focus is only to test code that belongs to me in this case.
 
 ### App weaknesses ###
-Definitly the embedded ML is a big issue here, it is a concept which allows to think differently from string manipulations
-With ML the solution is flexible, extracting it to a seperate service would allow scalability and extended features.
-I decided to leave it here just to show the concept that in my opinion today we have to use ML for such NLP analysis tasks
+The embedded Machine learning algorithm is not complete and trained on hot-topics, it is a concept which allows to think differently from string manipulations when it comes to NLP tasks.
+
+With Machine learning, the solution becomes flexible, to solve this weakness, I would extract this to a seperate service and train it on correct data, instead of using a pre-trained model such as here <br>
+I decided to go for a machine learning solution to show the concept. In my opinion, today, we have to use ML for such NLP analysis tasks.<br>
 It can scale to many languages and the models could be trained to fit the exact requirement, whereas other manipulations are very limited
 to programmatic ideas.
 
-Async - its not a cloud native solution, it scales based on cores, this is expensive, would be better to implement here non blocking reactivity.
+https://medium.com/datadriveninvestor/rake-rapid-automatic-keyword-extraction-algorithm-f4ec17b2886c
+http://opennlp.sourceforge.net/models-1.5/
+
+Async - using async is not a cloud native solution, it scales based on cores, this is expensive, would be better to implement here non blocking reactivity.
 
 XML feeds and ROME - this should be JSON, this way its easy to write POJOs, transform and preform analysis.
 The library is very complex for a very simple task.
@@ -101,9 +105,7 @@ https://www.baeldung.com/spring-webclient-simultaneous-calls
 https://stackoverflow.com/questions/12930935/illegalargumentexception-expecting-idclass-mapping
 ## JPA Queries ##
 ```
-SELECT t.keyword, COUNT(keyword) AS frequency FROM Topic t join  FEED_ITEM where FEED_ITEM.UUID = '8420b75303c94760bf1916bde08c5585' GROUP BY t.keyword ORDER BY frequency DESC, t.keyword ASC;
-
-SELECT distinct count(keyword) as freq, keyword FROM TOPIC where topic.feed_item_uuid =  'd98fb1591e8f47bdbc225d3770b7173d' group by keyword order by freq DESC
+SELECT count(keyword) as freq, keyword FROM TOPIC where topic.feed_item_uuid =  'd98fb1591e8f47bdbc225d3770b7173d' group by keyword order by freq DESC
 ```
 
 # Exercise
